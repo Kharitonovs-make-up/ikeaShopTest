@@ -351,9 +351,9 @@ footer {
 	background-color: #fff;
 	overflow-y: auto;
 	overflow-x: hidden;
-	-webkit-transition: left, right 0.4s 0s;
-	-o-transition: left, right 0.4s 0s;
-	transition: left, right 0.4s 0s;
+	-webkit-transition: left 0.6s 0s, right 0.6s 0s;
+	-o-transition: left 0.6s 0s, right 0.6s 0s;
+	transition: left 0.6s 0s, right 0.6s 0s;
 	width: 25rem;
 	padding: 6rem 4rem 3rem;
 	border-left: 2px solid #ccc;
@@ -361,7 +361,6 @@ footer {
 
 .subcatalog.subopen {
 	left: 20rem;
-	display: block;
 }
 
 .overlay {
