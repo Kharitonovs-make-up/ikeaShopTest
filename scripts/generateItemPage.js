@@ -1,4 +1,5 @@
 import {getData} from "./getData.js";
+import userData from "./userData.js";
 const COUNTER = 5;
 
 export const generateItemPage = () => {
@@ -10,7 +11,14 @@ export const generateItemPage = () => {
 				goodItemEmpty = document.querySelector('.good-item__empty'),
 				goodItemPriceValue = document.querySelector('.good-item__price-value'),
 				btnGood = document.querySelector('.btn-good'),
-				btnAddWishList = document.querySelector('.btn-add-wishlist');
+				btnAddWishList = document.querySelector('.btn-add-wishlist'),
+				breadcrumbLink = document.querySelectorAll('.breadcrumb__link');
+
+		breadcrumbLink[0].textContent = category;
+		breadcrumbLink[0].href = `goods.html?cat=${category}`
+		breadcrumbLink[1].textContent = subcategory;
+		breadcrumbLink[1].href = `goods.html?cat=${subcategory}`
+		breadcrumbLink[2].textContent = itemName;
 
 		goodImages.textContent = '';
 		// goodItemNew
@@ -33,6 +41,24 @@ export const generateItemPage = () => {
 			goodItemEmpty.style.display = 'block'
 			btnGood.style.display = 'none'
 		}
+
+		const checkWishList = () => {
+			if(userData.wishList.includes(id)){
+				btnAddWishList.classList.add('contains-wishlist');
+			} else {
+				btnAddWishList.classList.remove('contains-wishlist');
+			}
+		}
+
+		btnAddWishList.addEventListener('click', () => {
+			userData.wishList = id;
+			checkWishList();
+		})
+
+		btnGood.addEventListener('click', () => {
+			userData.cartList = id;
+		})
+		checkWishList();
 	};
 
 	if(location.hash && location.pathname.includes('card')){

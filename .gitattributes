@@ -1,0 +1,14 @@
+* text=auto
+
+#force text
+*.html text
+*.js text
+*.css text
+
+#Windows files (need CRLF)
+
+#Unix files (need LF)
+
+#binary files
+*.jpg -text
+*.gif -text

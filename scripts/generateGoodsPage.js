@@ -1,4 +1,5 @@
 import {getData} from "./getData.js";
+import userData from "./userData.js";
 
 const COUNTER = 5;
 //'idd005', 'idd032', 'idd033', 'idd095'
@@ -6,9 +7,8 @@ const wishList = [];
 
 export const generateGoodsPage = () => {
 	const mainHeader = document.querySelector('.main-header');
-	const goodsList = document.querySelector('.goods-list');
-
 	const generateCards = (data) => {
+		const goodsList = document.querySelector('.goods-list');
 		goodsList.textContent = '';
 		if(!data.length){
 			const goods = document.querySelector('.goods');
@@ -45,22 +45,36 @@ export const generateGoodsPage = () => {
 				</li>
 			`)
 		})
+
+		goodsList.addEventListener('click', (event) => {
+			const btnAddCard = event.target.closest('.btn-add-card');
+			console.log(btnAddCard)
+			if(btnAddCard){
+				event.preventDefault();
+				userData.cartList = btnAddCard.dataset.idd;
+				console.log(userData.cartList)
+			}
+		})
 	}
 
 	if (location.pathname.includes('goods') && location.search){
-		const search = decodeURI(location.search).split('=');
-		const prop = search[0].slice(1);
-		const value = search[1];
+		const search = decodeURI(location.search)
+		console.log(search)
+		const prop = search.split('=')[0].slice(1);
+		
+		const value = search.split('=')[1]
+				//.replace(/(\++(?=$))|(^\++)/g, '').replace(/\++/, ' ');
 
 		if(prop === 's'){
 			getData.search(value, generateCards)
 			mainHeader.textContent = `Поиск ${value}`
 		} else if(prop === 'wishlist'){
-			getData.wishList(wishList, generateCards);
+			getData.wishList(userData.wishList, generateCards);
 			mainHeader.textContent = `Желания`
 		} else if(prop === 'cat' || prop === 'subcat'){
 			getData.category(prop, value, generateCards)
 			mainHeader.textContent = `категория ${value}`
 		}
 	}
+
 }
